@@ -2,11 +2,11 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="CATS: The first statistical framework to formally certify tool selection robustness against adaptive adversarial attacks.">
-  <meta property="og:title" content="CATS: Certification of Agentic Tool-Selection"/>
+  <meta name="description" content="LLMCert-T: The first statistical framework to formally certify tool selection robustness against adaptive adversarial attacks.">
+  <meta property="og:title" content="LLMCert-T: Certification of Agentic Tool-Selection"/>
   <meta property="og:description" content="Certification of LLM agents against adversarial tool injections."/>
   
-  <title>CATS: Certifying Robustness of Agentic Tool-Selection</title>
+  <title>LLMCert-T: Certifying Robustness of Agentic Tool-Selection</title>
   <link rel="icon" type="image/x-icon" href="static/images/favicon.ico"> 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
@@ -20,7 +20,6 @@
   <script defer src="static/js/fontawesome.all.min.js"></script>
 
   <style>
-    /* Custom styling for the tool slate visualization */
     .tool-card {
         background-color: #f8f9fa;
         border: 1px solid #dee2e6;
@@ -40,13 +39,6 @@
   </style>
 
   <script>
-    /* LOGIC ADAPTATION: 
-       Instead of "Gender/Race", we switch between "Attack Types".
-       User1 = The User Query
-       Prefix = The Retrieved Slate (The context the LLM sees)
-       Response1 = The Agent's (Flawed) Decision
-    */
-
     var attacks_adversarial = [
       {
         "query": "What is the area of a triangle with height 3 and base 5?",
@@ -87,21 +79,18 @@
     function renderSimulation() {
         var data = current_attack_set[current_index];
         
-        // 1. Render User Query
         $("#sim-query").text(data.query);
         
-        // 2. Render Retrieved Slate (The Context)
         $("#sim-slate").html(data.slate_html);
         
-        // 3. Render Agent Decision (The Failure)
-        $("#sim-decision").text(""); // Clear previous
+        $("#sim-decision").text(""); 
         typeWriter("#sim-decision", data.agent_response, 0);
     }
 
     function typeWriter(selector, text, i) {
         if (i < text.length) {
             $(selector).html(text.substring(0, i+1));
-            setTimeout(function() { typeWriter(selector, text, i + 1) }, 10); // Typing speed
+            setTimeout(function() { typeWriter(selector, text, i + 1) }, 10); // typing speed
         }
     }
 
@@ -136,7 +125,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">CATS: Certifying Robustness of Agentic Tool-Selection under Adversarial Distributions</h1>
+          <h1 class="title is-1 publication-title">LLMCert-T: Certifying Robustness of Agentic Tool-Selection under Adversarial Distributions</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://jeybird248.github.io/">Jehyeok Yeon</a><sup>1</sup>,
@@ -162,7 +151,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://github.com/uiuc-focal-lab/CATS" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://github.com/uiuc-focal-lab/LLMCert-T" target="_blank" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fab fa-github"></i></span>
                   <span>Code</span>
                 </a>
@@ -185,7 +174,7 @@
             Large language models (LLMs) are increasingly deployed in agentic systems where they map user intents to relevant external tools. A critical step in this process is <b>tool selection</b>, where a retriever first surfaces a top-N slate of candidate tools, after which the LLM selects the most appropriate one. 
           </p>
           <p>
-            We introduce <b>CATS (Certification of Agentic Tool Selection)</b>, the first statistical framework that formally certifies tool selection robustness. CATS models selection as a Bernoulli success process against a strong, adaptive attacker who introduces adversarial tools with misleading metadata. Our evaluation reveals severe fragility: under adaptive attacks, the certified lower bound on accuracy drops to nearly <b>0%</b> for state-of-the-art models like Llama-3 and Gemma-3.
+            We introduce <b>LLMCert-T (Certification of Agentic Tool Selection)</b>, the first statistical framework that formally certifies tool selection robustness. LLMCert-T models selection as a Bernoulli success process against a strong, adaptive attacker who introduces adversarial tools with misleading metadata. Our evaluation reveals severe fragility: under adaptive attacks, the certified lower bound on accuracy drops to nearly <b>0%</b> for state-of-the-art models like Llama-3 and Gemma-3.
           </p>
         </div>
       </div>
@@ -203,7 +192,7 @@
             The pipeline fails because agents are not able to inspect the internal code of each tool; they rely on <b>metadata-driven selection</b>. An adversary can inject a tool (e.g., <code>calc_triangle_better</code>) that mimics a legitimate tool but in reality performs malicious behvaior when called.
           </p>
           <figure class="image">
-            <img src="static/images/figure1_cats.png" alt="Figure 1: Attack surfaces in tool selection">
+            <img src="static/images/figure1_llmcert_t.png" alt="Figure 1: Attack surfaces in tool selection">
             <figcaption>Figure 1: The Attack Surface. (i) Unregulated Tool Pools allow injection. (ii) Retriever Dependence creates a bottleneck. (iii) Metadata-driven selection exposes LLMs to semantic manipulation.</figcaption>
           </figure>
         </div>
